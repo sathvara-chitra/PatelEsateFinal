@@ -1,5 +1,6 @@
 package com.patelestate.fragment.home.commercial
 
+import android.content.Intent
 import android.media.Image
 import android.os.Bundle
 import android.util.Log
@@ -14,6 +15,7 @@ import com.patelestate.Loader
 import com.patelestate.R
 import com.patelestate.adapter.ViewPagerAdapter
 import com.patelestate.base.BaseActivity
+import com.patelestate.fragment.home.pdf.PDFViewActivity
 import org.json.JSONArray
 import org.json.JSONObject
 import retrofit2.Call
@@ -22,7 +24,7 @@ import kotlin.math.roundToInt
 
 
 class CommercialDetailsActivity : BaseActivity() {
-    private var viewPagerAdapter: ViewPagerAdapter?=null
+    private var viewPagerAdapter: ViewPagerAdapter? = null
     private var relScrollImages: RelativeLayout? = null
     private var relStat: RelativeLayout? = null
     private var dotscount: Int = 0
@@ -37,7 +39,9 @@ class CommercialDetailsActivity : BaseActivity() {
     private var txtStatus: TextView? = null
     private var txtArea: TextView? = null
     private var txtDescription: TextView? = null
-    private  var arrImages:ArrayList<String>? = null
+    private var arrImages: ArrayList<String>? = null
+
+    private var txtMessage: RelativeLayout? = null
     var loader: Loader? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,6 +64,8 @@ class CommercialDetailsActivity : BaseActivity() {
         viewPager = findViewById<ViewPager>(R.id.mViewPager)
         sliderDotspanel = findViewById<LinearLayout>(R.id.SliderDots)
 
+        txtMessage = findViewById<RelativeLayout>(R.id.txtMessage)
+
         setSupportActionBar(toolbar)
         supportActionBar?.title = ""
         relScrollImages!!.layoutParams.height =
@@ -77,11 +83,17 @@ class CommercialDetailsActivity : BaseActivity() {
         toolbar!!.setNavigationOnClickListener {
             finish()
         }
+
+        txtMessage!!.setOnClickListener {
+            val mainIntent = Intent(this@CommercialDetailsActivity, PDFViewActivity::class.java)
+            startActivity(mainIntent)
+        }
     }
 
     private fun getCommercialDetails() {
         loader!!.show()
-        val call: Call<JsonObject?> = RetrofitClient.getClient().getDetails1("https://patelestateapi-dev.azurewebsites.net/api/CommercialProperties/"+propertyUniqid)
+        val call: Call<JsonObject?> = RetrofitClient.getClient()
+            .getDetails1("https://patelestateapi-dev.azurewebsites.net/api/CommercialProperties/" + propertyUniqid)
         call!!.enqueue(object : Callback<JsonObject?> {
 
             override fun onFailure(call: Call<JsonObject?>, t: Throwable) {
@@ -102,7 +114,7 @@ class CommercialDetailsActivity : BaseActivity() {
                 val jobj = JSONObject(RegisterResponse.toString())
                 Log.d("JsornArray", jobj.toString())
                 txtType!!.setText(jobj.getString("transactionType"))
-                txtRate!!.setText("$"+jobj.getString("askingprice")+".00")
+                txtRate!!.setText("$" + jobj.getString("askingprice") + ".00")
                 txtAddress!!.setText(jobj.getString("address"))
                 txtStatus!!.setText(jobj.getString("status"))
                 txtArea!!.setText(jobj.getString("landArea"))
@@ -114,7 +126,7 @@ class CommercialDetailsActivity : BaseActivity() {
                     arrImages!!.add(json_object!!.getString("photoPath"))
                 }
 
-                viewPagerAdapter = ViewPagerAdapter(this@CommercialDetailsActivity,arrImages!!)
+                viewPagerAdapter = ViewPagerAdapter(this@CommercialDetailsActivity, arrImages!!)
                 viewPager!!.adapter = viewPagerAdapter
                 dotscount = viewPagerAdapter!!.count
                 val dots = arrayOfNulls<ImageView?>(dotscount)

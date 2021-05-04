@@ -223,7 +223,14 @@
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
 
                 />
-
+            <TextView
+                android:id="@+id/txtNoData"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="No Data Found"
+                android:gravity="center"
+                android:visibility="gone"
+                />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 

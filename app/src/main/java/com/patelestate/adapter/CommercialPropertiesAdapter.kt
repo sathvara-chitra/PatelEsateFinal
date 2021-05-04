@@ -20,7 +20,6 @@ class CommercialPropertiesAdapter(
     private val list: ArrayList<GetCommercialLIstItem>,
     val listner: onCommercialPropertyClick
 ) :
-
     RecyclerView.Adapter<CommercialPropertiesAdapter.MovieViewHolder>() {
     var removedPosition: Int? = null
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {

@@ -23,6 +23,7 @@ import com.patelestate.Loader
 import com.patelestate.R
 import com.patelestate.adapter.CommercialPropertiesAdapter
 import com.patelestate.adapter.PropertyTypeAdapter
+import com.patelestate.adapter.ResidencialPropertiesAdapter
 import com.patelestate.fragment.home.commercial.CommercialDetailsActivity
 import com.patelestate.model.GetCommercialLIstItem
 import com.patelestate.utils.SharedPrefsConstant
@@ -80,7 +81,7 @@ class CommercialFragment : Fragment(), CommercialPropertiesAdapter.onCommercialP
     var loadmore = true
     var loader: Loader? = null
     var _areLecturesLoaded = false
-
+    private var txtNoData: TextView? = null
 
     private var strPropetyFor: String? = ""
     private var strMinPrice: String? = ""
@@ -127,6 +128,7 @@ class CommercialFragment : Fragment(), CommercialPropertiesAdapter.onCommercialP
     private fun init(root: View) {
         loader = Loader(activity!!)
         txtClearFilter = root.findViewById(R.id.txtClearFilter) as TextView
+        txtNoData = root.findViewById(R.id.txtNoData) as TextView
         txtDone = root.findViewById(R.id.txtDone) as TextView
         btn_clearAll = root.findViewById(R.id.btn_clearAll) as TextView
         btn_propertyType = root.findViewById(R.id.btn_propertyType) as TextView
@@ -287,11 +289,19 @@ class CommercialFragment : Fragment(), CommercialPropertiesAdapter.onCommercialP
 
                     Log.e("arrData1", arrData1.toString())
                     Log.e("size", arrData1.size.toString())
-                    recyclerViewCommercial?.adapter = CommercialPropertiesAdapter(
+                    if (arrData1.size>0){
+                        txtNoData!!.visibility = View.GONE
+                        recyclerViewCommercial!!.visibility = View.VISIBLE
+                        recyclerViewCommercial?.adapter = CommercialPropertiesAdapter(
                             activity!!,
                             arrData1,
                             this@CommercialFragment
-                    )
+                        )
+                    }else{
+                        txtNoData!!.visibility = View.VISIBLE
+                        recyclerViewCommercial!!.visibility = View.GONE
+                    }
+
                 }else{
 
                 }
@@ -491,11 +501,20 @@ class CommercialFragment : Fragment(), CommercialPropertiesAdapter.onCommercialP
 
                     Log.e("arrData1", arrData1.toString())
                     Log.e("size", arrData1.size.toString())
-                    recyclerViewCommercial?.adapter = CommercialPropertiesAdapter(
+                    if (arrData1.size>0){
+                        txtNoData!!.visibility = View.GONE
+                        recyclerViewCommercial!!.visibility = View.VISIBLE
+                        recyclerViewCommercial?.adapter = CommercialPropertiesAdapter(
                             activity!!,
                             arrData1,
                             this@CommercialFragment
-                    )
+                        )
+                    }else{
+                        txtNoData!!.visibility = View.VISIBLE
+                        recyclerViewCommercial!!.visibility = View.GONE
+                    }
+
+
                 }else{
 
                 }

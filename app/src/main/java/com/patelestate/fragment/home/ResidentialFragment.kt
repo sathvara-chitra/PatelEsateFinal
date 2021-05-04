@@ -96,6 +96,7 @@ class ResidentialFragment : Fragment(),ResidencialPropertiesAdapter.onResidental
     private var btnFourBathroom: TextView? = null
     private var tvMinValueSize: TextView? = null
     private var tvMaxValueSize: TextView? = null
+    private var txtNoData: TextView? = null
     private var btnYes: TextView? = null
     private var btnNo: TextView? = null
     private var txtCountProperty: TextView? = null
@@ -155,6 +156,7 @@ class ResidentialFragment : Fragment(),ResidencialPropertiesAdapter.onResidental
         ll_size = root.findViewById(R.id.ll_size) as LinearLayout
         rl_house = root.findViewById(R.id.rl_house) as LinearLayout
 
+        txtNoData = root.findViewById(R.id.txtNoData) as TextView
         txtCountProperty = root.findViewById(R.id.txtCountProperty) as TextView
         btn_propertyFor = root.findViewById(R.id.btn_propertyFor) as TextView
         btn_homeType = root.findViewById(R.id.btn_homeType) as TextView
@@ -326,6 +328,7 @@ class ResidentialFragment : Fragment(),ResidencialPropertiesAdapter.onResidental
 
         when (v?.id) {
             R.id.btn_clearAll -> {
+                strOrder = ""
                 btn_propertyFor!!.setBackgroundResource(R.drawable.coomercial_box_border)
                 btn_homeType!!.setBackgroundResource(R.drawable.coomercial_box_border)
                 btn_price!!.setBackgroundResource(R.drawable.coomercial_box_border)
@@ -347,9 +350,11 @@ class ResidentialFragment : Fragment(),ResidencialPropertiesAdapter.onResidental
                 clearAll()
             }
             R.id.txtClearFilter -> {
+                strOrder = ""
                 RemoveFilter(strSelectFilter)
             }
             R.id.txtDone -> {
+                strOrder = ""
                 btn_propertyFor!!.setBackgroundResource(R.drawable.coomercial_box_border)
                 btn_homeType!!.setBackgroundResource(R.drawable.coomercial_box_border)
                 btn_price!!.setBackgroundResource(R.drawable.coomercial_box_border)
@@ -373,6 +378,7 @@ class ResidentialFragment : Fragment(),ResidencialPropertiesAdapter.onResidental
             }
 
             R.id.btn_propertyFor -> {
+                strOrder = ""
                 rl_propertySale!!.visibility = View.VISIBLE
                 ll_price!!.visibility = View.GONE
                 rl_hometype!!.visibility = View.GONE
@@ -392,6 +398,7 @@ class ResidentialFragment : Fragment(),ResidencialPropertiesAdapter.onResidental
                 strSelectFilter = "PropertyType"
             }
             R.id.btn_homeType -> {
+                strOrder = ""
                 rl_propertySale!!.visibility = View.GONE
                 ll_price!!.visibility = View.GONE
                 rl_hometype!!.visibility = View.VISIBLE
@@ -411,6 +418,7 @@ class ResidentialFragment : Fragment(),ResidencialPropertiesAdapter.onResidental
                 strSelectFilter = "HomeType"
             }
             R.id.btn_price -> {
+                strOrder = ""
                 rl_propertySale!!.visibility = View.GONE
                 ll_price!!.visibility = View.VISIBLE
                 rl_hometype!!.visibility = View.GONE
@@ -430,6 +438,7 @@ class ResidentialFragment : Fragment(),ResidencialPropertiesAdapter.onResidental
                 strSelectFilter = "Price"
             }
             R.id.btn_bedroom -> {
+                strOrder = ""
                 rl_propertySale!!.visibility = View.GONE
                 ll_price!!.visibility = View.GONE
                 rl_hometype!!.visibility = View.GONE
@@ -449,6 +458,7 @@ class ResidentialFragment : Fragment(),ResidencialPropertiesAdapter.onResidental
                 strSelectFilter = "Bedroom"
             }
             R.id.btn_bathroom -> {
+                strOrder = ""
                 rl_propertySale!!.visibility = View.GONE
                 ll_price!!.visibility = View.GONE
                 rl_hometype!!.visibility = View.GONE
@@ -468,6 +478,7 @@ class ResidentialFragment : Fragment(),ResidencialPropertiesAdapter.onResidental
                 strSelectFilter = "Bathroom"
             }
             R.id.btn_size -> {
+                strOrder = ""
                 rl_propertySale!!.visibility = View.GONE
                 ll_price!!.visibility = View.GONE
                 rl_hometype!!.visibility = View.GONE
@@ -487,6 +498,7 @@ class ResidentialFragment : Fragment(),ResidencialPropertiesAdapter.onResidental
                 strSelectFilter = "Size"
             }
             R.id.btn_openHouse -> {
+                strOrder = ""
                 rl_propertySale!!.visibility = View.GONE
                 ll_price!!.visibility = View.GONE
                 rl_hometype!!.visibility = View.GONE
@@ -506,42 +518,49 @@ class ResidentialFragment : Fragment(),ResidencialPropertiesAdapter.onResidental
                 strSelectFilter = "Open House"
             }
             R.id.btnSale -> {
+                strOrder = ""
                 strPropetyFor = SharedPrefsConstant.TransactionType+" eq %27For Sale%27 and "
                 btnSale!!.setBackgroundResource(R.drawable.yellow_rounded_border)
                 btnRent!!.setBackgroundResource(R.drawable.rounded_grey_border)
                 btnJudicial!!.setBackgroundResource(R.drawable.rounded_grey_border)
             }
             R.id.btnRent -> {
+                strOrder = ""
                 strPropetyFor = SharedPrefsConstant.TransactionType+" eq %27Rent%27 and "
                 btnRent!!.setBackgroundResource(R.drawable.yellow_rounded_border)
                 btnSale!!.setBackgroundResource(R.drawable.rounded_grey_border)
                 btnJudicial!!.setBackgroundResource(R.drawable.rounded_grey_border)
             }
             R.id.btnJudicial -> {
+                strOrder = ""
                 strPropetyFor = SharedPrefsConstant.TransactionType+" eq %27Judicial Sale%27 and "
                 btnJudicial!!.setBackgroundResource(R.drawable.yellow_rounded_border)
                 btnRent!!.setBackgroundResource(R.drawable.rounded_grey_border)
                 btnSale!!.setBackgroundResource(R.drawable.rounded_grey_border)
             }
             R.id.btnHouse -> {
+                strOrder = ""
                 strHomeType =SharedPrefsConstant.TransactionType+ " eq %27House%27 and "
                 btnHouse!!.setBackgroundResource(R.drawable.yellow_rounded_border)
                 btnCondo!!.setBackgroundResource(R.drawable.rounded_grey_border)
                 btnTownHome!!.setBackgroundResource(R.drawable.rounded_grey_border)
             }
             R.id.btnCondo -> {
+                strOrder = ""
                 strHomeType = "eq %27Condo%27"
                 btnCondo!!.setBackgroundResource(R.drawable.yellow_rounded_border)
                 btnHouse!!.setBackgroundResource(R.drawable.rounded_grey_border)
                 btnTownHome!!.setBackgroundResource(R.drawable.rounded_grey_border)
             }
             R.id.btnTownHome -> {
+                strOrder = ""
                 strHomeType = "eq %27Townhomes%27"
                 btnTownHome!!.setBackgroundResource(R.drawable.yellow_rounded_border)
                 btnHouse!!.setBackgroundResource(R.drawable.rounded_grey_border)
                 btnCondo!!.setBackgroundResource(R.drawable.rounded_grey_border)
             }
             R.id.btnAny -> {
+                strOrder = ""
                 strBedroom = SharedPrefsConstant.bedroomsTotal+" eq %27Any%27 and "
                 btnAny!!.setBackgroundResource(R.drawable.yellow_rounded_border)
                 btnOne!!.setBackgroundResource(R.drawable.rounded_grey_border)
@@ -550,6 +569,7 @@ class ResidentialFragment : Fragment(),ResidencialPropertiesAdapter.onResidental
                 btnFour!!.setBackgroundResource(R.drawable.rounded_grey_border)
             }
             R.id.btnOne -> {
+                strOrder = ""
                 strBedroom = SharedPrefsConstant.bedroomsTotal+" eq 1 and "
                 btnAny!!.setBackgroundResource(R.drawable.rounded_grey_border)
                 btnOne!!.setBackgroundResource(R.drawable.yellow_rounded_border)
@@ -558,6 +578,7 @@ class ResidentialFragment : Fragment(),ResidencialPropertiesAdapter.onResidental
                 btnFour!!.setBackgroundResource(R.drawable.rounded_grey_border)
             }
             R.id.btnTwo -> {
+                strOrder = ""
                 strBedroom = SharedPrefsConstant.bedroomsTotal+" eq 2 and "
                 btnAny!!.setBackgroundResource(R.drawable.rounded_grey_border)
                 btnOne!!.setBackgroundResource(R.drawable.rounded_grey_border)
@@ -566,6 +587,7 @@ class ResidentialFragment : Fragment(),ResidencialPropertiesAdapter.onResidental
                 btnFour!!.setBackgroundResource(R.drawable.rounded_grey_border)
             }
             R.id.btnThree -> {
+                strOrder = ""
                 strBedroom = SharedPrefsConstant.bedroomsTotal+" eq 3 and "
                 btnAny!!.setBackgroundResource(R.drawable.rounded_grey_border)
                 btnOne!!.setBackgroundResource(R.drawable.rounded_grey_border)
@@ -574,6 +596,7 @@ class ResidentialFragment : Fragment(),ResidencialPropertiesAdapter.onResidental
                 btnFour!!.setBackgroundResource(R.drawable.rounded_grey_border)
             }
             R.id.btnFour -> {
+                strOrder = ""
                 strBedroom = SharedPrefsConstant.bedroomsTotal+" eq 4 and "
                 btnAny!!.setBackgroundResource(R.drawable.rounded_grey_border)
                 btnOne!!.setBackgroundResource(R.drawable.rounded_grey_border)
@@ -582,6 +605,7 @@ class ResidentialFragment : Fragment(),ResidencialPropertiesAdapter.onResidental
                 btnFour!!.setBackgroundResource(R.drawable.yellow_rounded_border)
             }
             R.id.btnAnyBathroom -> {
+                strOrder = ""
                 strBathroom = SharedPrefsConstant.bathroomTotal+" eq %27Any%27 and "
                 btnAnyBathroom!!.setBackgroundResource(R.drawable.yellow_rounded_border)
                 btnOneBathroom!!.setBackgroundResource(R.drawable.rounded_grey_border)
@@ -590,6 +614,7 @@ class ResidentialFragment : Fragment(),ResidencialPropertiesAdapter.onResidental
                 btnFourBathroom!!.setBackgroundResource(R.drawable.rounded_grey_border)
             }
             R.id.btnOneBathroom -> {
+                strOrder = ""
                 strBathroom = SharedPrefsConstant.bathroomTotal+" eq 1 and "
                 btnAnyBathroom!!.setBackgroundResource(R.drawable.rounded_grey_border)
                 btnOneBathroom!!.setBackgroundResource(R.drawable.yellow_rounded_border)
@@ -598,6 +623,7 @@ class ResidentialFragment : Fragment(),ResidencialPropertiesAdapter.onResidental
                 btnFourBathroom!!.setBackgroundResource(R.drawable.rounded_grey_border)
             }
             R.id.btnTwoBathroom -> {
+                strOrder = ""
                 strBathroom = SharedPrefsConstant.bathroomTotal+" eq 2 and "
                 btnAnyBathroom!!.setBackgroundResource(R.drawable.rounded_grey_border)
                 btnOneBathroom!!.setBackgroundResource(R.drawable.rounded_grey_border)
@@ -606,6 +632,7 @@ class ResidentialFragment : Fragment(),ResidencialPropertiesAdapter.onResidental
                 btnFourBathroom!!.setBackgroundResource(R.drawable.rounded_grey_border)
             }
             R.id.btnThreeBathroom -> {
+                strOrder = ""
                 strBathroom = SharedPrefsConstant.bathroomTotal+" eq 3 and "
                 btnAnyBathroom!!.setBackgroundResource(R.drawable.rounded_grey_border)
                 btnOneBathroom!!.setBackgroundResource(R.drawable.rounded_grey_border)
@@ -614,6 +641,7 @@ class ResidentialFragment : Fragment(),ResidencialPropertiesAdapter.onResidental
                 btnFourBathroom!!.setBackgroundResource(R.drawable.rounded_grey_border)
             }
             R.id.btnFourBathroom -> {
+                strOrder = ""
                 strBathroom = SharedPrefsConstant.bathroomTotal+" eq 4 and "
                 btnAnyBathroom!!.setBackgroundResource(R.drawable.rounded_grey_border)
                 btnOneBathroom!!.setBackgroundResource(R.drawable.rounded_grey_border)
@@ -622,11 +650,13 @@ class ResidentialFragment : Fragment(),ResidencialPropertiesAdapter.onResidental
                 btnFourBathroom!!.setBackgroundResource(R.drawable.yellow_rounded_border)
             }
             R.id.btnYes -> {
+                strOrder = ""
                 strOpenHouse = SharedPrefsConstant.bathroomTotal+" eq %27Yes%27 and "
                 btnYes!!.setBackgroundResource(R.drawable.yellow_rounded_border)
                 btnNo!!.setBackgroundResource(R.drawable.rounded_grey_border)
             }
             R.id.btnNo -> {
+                strOrder = ""
                 strOpenHouse = SharedPrefsConstant.bathroomTotal+" eq %No%27 and "
                 btnYes!!.setBackgroundResource(R.drawable.rounded_grey_border)
                 btnNo!!.setBackgroundResource(R.drawable.yellow_rounded_border)
@@ -776,6 +806,18 @@ class ResidentialFragment : Fragment(),ResidencialPropertiesAdapter.onResidental
 
 
                     Log.e("arrData1", arrData1.toString())
+                    if (arrData1.size>0){
+                        txtNoData!!.visibility = View.GONE
+                        recyclerViewResidentials!!.visibility = View.VISIBLE
+                        recyclerViewResidentials?.adapter = ResidencialPropertiesAdapter(
+                            activity!!,
+                            arrData1,
+                            this@ResidentialFragment
+                        )
+                    }else{
+                        txtNoData!!.visibility = View.VISIBLE
+                        recyclerViewResidentials!!.visibility = View.GONE
+                    }
                     recyclerViewResidentials?.adapter = ResidencialPropertiesAdapter(
                             activity!!,
                             arrData1,
@@ -845,11 +887,19 @@ class ResidentialFragment : Fragment(),ResidencialPropertiesAdapter.onResidental
                             arrData1.add(abjd)
                     }
                     Log.e("arrData1", arrData1.toString())
-                    recyclerViewResidentials?.adapter = ResidencialPropertiesAdapter(
+                    if (arrData1.size>0){
+                        txtNoData!!.visibility = View.GONE
+                        recyclerViewResidentials!!.visibility = View.VISIBLE
+                        recyclerViewResidentials?.adapter = ResidencialPropertiesAdapter(
                             activity!!,
                             arrData1,
                             this@ResidentialFragment
-                    )
+                        )
+                    }else{
+                        txtNoData!!.visibility = View.VISIBLE
+                        recyclerViewResidentials!!.visibility = View.GONE
+                    }
+
                 }else
                 {
 
